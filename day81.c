@@ -1,51 +1,38 @@
-//Given a weighted graph with n vertices, implement the Floyd-Warshall algorithm to compute the shortest distances between every pair of vertices. The graph may contain positive or negative edge weights, but it does not contain any negative weight cycles.
+//Implement Bubble Sort - Implement the algorithm.
 
 #include <stdio.h>
 
-#define INF 1000000   // A large value to represent infinity
-
 int main() {
-    int n;
+    int n, i, j, temp;
+
+    // Input size
+    printf("Enter number of elements: ");
     scanf("%d", &n);
 
-    int dist[n][n];
+    int arr[n];
 
-    // Input adjacency matrix
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            scanf("%d", &dist[i][j]);
+    // Input elements
+    printf("Enter %d elements:\n", n);
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
 
-            // Convert -1 (no edge) to INF
-            if(dist[i][j] == -1 && i != j) {
-                dist[i][j] = INF;
+    // Bubble Sort Logic
+    for(i = 0; i < n - 1; i++) {
+        for(j = 0; j < n - i - 1; j++) {
+            if(arr[j] > arr[j + 1]) {
+                // Swap
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
             }
         }
     }
 
-    // Floyd-Warshall Algorithm
-    for(int k = 0; k < n; k++) {
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-
-                // If going through k gives shorter path
-                if(dist[i][k] + dist[k][j] < dist[i][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                }
-
-            }
-        }
-    }
-
-    // Output result
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-
-            if(dist[i][j] == INF)
-                printf("-1 ");
-            else
-                printf("%d ", dist[i][j]);
-        }
-        printf("\n");
+    // Output sorted array
+    printf("Sorted array:\n");
+    for(i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
     }
 
     return 0;
